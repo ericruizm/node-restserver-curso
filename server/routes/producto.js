@@ -113,7 +113,7 @@ app.post("/productos", verificaToken, (req, res) => {
     categoria: body.categoria,
   });
 
-  Producto.save((err, productoDB) => {
+  producto.save((err, productoDB) => {
     if (err) {
       res.status(500).json({
         ok: false,
