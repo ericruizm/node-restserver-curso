@@ -111,6 +111,7 @@ app.post("/productos", verificaToken, (req, res) => {
     descripcion: body.descripcion,
     disponible: body.disponible,
     categoria: body.categoria,
+    img: body.img,
   });
 
   producto.save((err, productoDB) => {
@@ -165,6 +166,7 @@ app.put("/productos/:id", verificaToken, (req, res) => {
     productoDB.descripcion = body.descripcion;
     productoDB.categoria = body.categoria;
     productoDB.disponible = body.disponible;
+    productoDB.img = body.img;
 
     productoDB.save((err, productoGuardado) => {
       if (err) {

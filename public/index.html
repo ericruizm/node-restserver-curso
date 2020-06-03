@@ -1,51 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Google Sing-In Demo</title>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="593234316154-u2gbv2lo1iidcm7n1emf5h44pq9s490q.apps.googleusercontent.com" />
-</head>
+    <meta
+      name="google-signin-client_id"
+      content="593234316154-u2gbv2lo1iidcm7n1emf5h44pq9s490q.apps.googleusercontent.com"
+    />
+  </head>
 
-<body>
+  <body>
+    <!-- <img
+      src="http://localhost:3000/imagen/usuarios/5ebc0fc8c2cb3bbcde559393-170.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7InJvbGUiOiJBRE1JTl9ST0xFIiwiZXN0YWRvIjpmYWxzZSwiZ29vZ2xlIjpmYWxzZSwiX2lkIjoiNWViYzBmYzhjMmNiM2JiY2RlNTU5MzkzIiwibm9tYnJlIjoiRXJpYyIsImVtYWlsIjoidGVzdDFAZ21haWwuY29tIiwiX192IjowLCJpbWciOiI1ZWJjMGZjOGMyY2IzYmJjZGU1NTkzOTMtMTcwLmpwZyJ9LCJpYXQiOjE1OTExODM4OTIsImV4cCI6MTU5MTM1NjY5Mn0.pkt4nLuirG3si2tnXnAccNP5CHxWT_uKQnybPA03Jjo"
+      alt=""
+    /> -->
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
     <a href="#" onclick="signOut();">Sign out</a>
     <script>
-        function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function() {
-                console.log("User signed out.");
-            });
-        }
+      function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log("User signed out.");
+        });
+      }
     </script>
     <script>
-        function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log("Name: " + profile.getName());
-            console.log("Image URL: " + profile.getImageUrl());
-            console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log("Name: " + profile.getName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
 
-            var id_token = googleUser.getAuthResponse().id_token;
+        var id_token = googleUser.getAuthResponse().id_token;
 
-            console.log(id_token);
+        console.log(id_token);
 
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/google");
-            xhr.setRequestHeader(
-                "Content-Type",
-                "application/x-www-form-urlencoded"
-            );
-            xhr.onload = function() {
-                console.log("Signed in as: " + xhr.responseText);
-            };
-            xhr.send("idtoken=" + id_token);
-        }
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/google");
+        xhr.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        );
+        xhr.onload = function () {
+          console.log("Signed in as: " + xhr.responseText);
+        };
+        xhr.send("idtoken=" + id_token);
+      }
     </script>
-</body>
-
+  </body>
 </html>
